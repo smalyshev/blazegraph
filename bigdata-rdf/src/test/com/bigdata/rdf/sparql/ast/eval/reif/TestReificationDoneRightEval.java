@@ -52,11 +52,11 @@ import com.bigdata.rdf.vocab.decls.DCTermsVocabularyDecl;
  * Reification Done Right test suite.
  * <p>
  * The basic extension is:
- * 
+ *
  * <pre>
  * BIND(<<?s,?p,?o>> as ?sid)
  * </pre>
- * 
+ *
  * This triple reference pattern associates the bindings on the subject,
  * predicate, and object positions of some triple pattern with the binding on a
  * variable for the triple. Except in the case where ?sid is already bound, the
@@ -77,18 +77,18 @@ import com.bigdata.rdf.vocab.decls.DCTermsVocabularyDecl;
  * well and ignored it when in a triples only mode. The sid/triple binding would
  * always be "in scope" but it would only be interpreted when non-null (either a
  * constant or a variable).
- * 
+ *
  * @see <a href="https://sourceforge.net/apps/trac/bigdata/ticket/526">
  *      Reification Done Right</a>
- * 
+ *
  * @author <a href="mailto:thompsonbry@users.sourceforge.net">Bryan Thompson</a>
  */
 public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCase {
 
 //    private static final Logger log = Logger.getLogger(TestReificationDoneRight.class);
-    
+
     /**
-     * 
+     *
      */
     public TestReificationDoneRightEval() {
     }
@@ -99,7 +99,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
     public TestReificationDoneRightEval(String name) {
         super(name);
 	}
-    
+
 	/**
 	 * Bootstrap test. The data are explicitly entered into the KB by hand. This
 	 * makes it possible to test evaluation without having to fix the RDF data
@@ -123,13 +123,13 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 				dcSource, dcCreated, newsSybase, createdDate, g1 };
 
 		final BigdataURI context = store.isQuads() ? g1 : null;
-		
+
 		store.addTerms(terms);
-		
+
 		// ground statement.
-		final BigdataStatement s0 = vf.createStatement(SAP, bought, sybase, 
+		final BigdataStatement s0 = vf.createStatement(SAP, bought, sybase,
 				context, StatementEnum.Explicit);
-		
+
 		// Setup blank node with SidIV for that Statement.
 		final BigdataBNode s1 = vf.createBNode("s1");
 		s1.setStatementIdentifier(true);
@@ -178,7 +178,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 		).runTest();
 
     }
-    
+
 	/**
 	 * Bootstrap test. The data are explicitly entered into the KB by hand. This
 	 * makes it possible to test evaluation without having to fix the RDF data
@@ -202,13 +202,13 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 				dcSource, dcCreated, newsSybase, createdDate, g1 };
 
 		final BigdataURI context = store.isQuads() ? g1 : null;
-		
+
 		store.addTerms(terms);
-		
+
 		// ground statement.
 		final BigdataStatement s0 = vf.createStatement(SAP, bought, sybase,
 				context, StatementEnum.Explicit);
-		
+
 		// Setup blank node with SidIV for that Statement.
 		final BigdataBNode s1 = vf.createBNode("s1");
 		s1.setStatementIdentifier(true);
@@ -241,7 +241,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 		).runTest();
 
     }
-    
+
     /**
      * Version of the above where the data are read from a file rather than being
      * built up by hand.
@@ -255,12 +255,12 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 		).runTest();
 
     }
-    
+
     /**
 	 * Simple query involving alice, bob, and an information extractor. For this
 	 * version of the test the data are modeled in the source file using RDF
 	 * reification.
-	 * 
+	 *
 	 * <pre>
 	 * select ?src where {
 	 *   ?x foaf:name "Alice" .
@@ -283,7 +283,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 	 * Simple query involving alice, bob, and an information extractor. For this
 	 * version of the test the data are modeled in the source file using the RDR
 	 * syntax.
-	 * 
+	 *
 	 * <pre>
 	 * select ?src where {
 	 *   ?x foaf:name "Alice" .
@@ -305,7 +305,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 	/**
 	 * Same data, but the query uses the BIND() syntax and pulls out some more
 	 * information.
-	 * 
+	 *
 	 * <pre>
 	 * select ?who ?src ?conf where {
 	 *   ?x foaf:name "Alice" .
@@ -329,7 +329,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 	/**
 	 * Same data, but the query uses the BIND() syntax and pulls out some more
 	 * information and RDR syntax for the data.
-	 * 
+	 *
 	 * <pre>
 	 * select ?who ?src ?conf where {
 	 *   ?x foaf:name "Alice" .
@@ -352,7 +352,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 
 	/**
 	 * Simple query ("who bought sybase").
-	 * 
+	 *
 	 * <pre>
 	 * SELECT ?src ?who {
 	 *    <<?who :bought :sybase>> dc:source ?src
@@ -371,7 +371,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 
 	/**
 	 * Simple query ("who bought sybase") using RDR syntax for the data.
-	 * 
+	 *
 	 * <pre>
 	 * SELECT ?src ?who {
 	 *    <<?who :bought :sybase>> dc:source ?src
@@ -391,7 +391,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 	/**
 	 * Same data, but the query uses the BIND() syntax and pulls out some more
 	 * information.
-	 * 
+	 *
 	 * <pre>
 	 * SELECT ?src ?who ?created {
 	 *    BIND( <<?who :bought :sybase>> as ?sid ) .
@@ -409,11 +409,11 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
                 ).runTest();
 
 	}
-	
+
 	/**
 	 * Same data, but the query uses the BIND() syntax and pulls out some more
 	 * information and RDR syntax for the data.
-	 * 
+	 *
 	 * <pre>
 	 * SELECT ?src ?who ?created {
 	 *    BIND( <<?who :bought :sybase>> as ?sid ) .
@@ -431,7 +431,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
                 ).runTest();
 
 	}
-	
+
 	/**
 	 * <pre>
 	 * prefix : <http://example.com/>
@@ -439,7 +439,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 	 *    BIND( <<?a :b :c>> AS ?ignored )
 	 * }
 	 * </pre>
-	 * 
+	 *
 	 * <pre>
 	 * prefix : <http://example.com/> .
 	 * :a1  :b  :c .
@@ -447,14 +447,14 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 	 * <<:a2 :b :c>>  :d  :e .
 	 * <<:a3 :b :c>>  :d  :e .
 	 * </pre>
-	 * 
+	 *
 	 * <pre>
 	 * ?a
 	 * ---
 	 * :a1
 	 * :a2
 	 * </pre>
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public void test_reificationDoneRight_03() throws Exception {
@@ -475,7 +475,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 	 *    ?sid :d ?e .
 	 * }
 	 * </pre>
-	 * 
+	 *
 	 * <pre>
 	 * prefix : <http://example.com/> .
 	 * :a1  :b  :c .
@@ -483,13 +483,13 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 	 * <<:a2 :b :c>>  :d  :e .
 	 * <<:a3 :b :c>>  :d  :e .
 	 * </pre>
-	 * 
+	 *
 	 * <pre>
 	 * ?a  ?e
 	 * ------
 	 * :a2 :e
 	 * </pre>
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public void test_reificationDoneRight_03a() throws Exception {
@@ -518,6 +518,22 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 
     }
 
+    /**
+     * <pre>
+     * </pre>
+     * @see <a href="http://trac.blazegraph.com/ticket/815"> RDR query does too
+     *      much work</a>
+     */
+    public void test_reificationDoneRight_05() throws Exception {
+
+        new TestHelper("reif/rdr-05", // testURI,
+                "reif/rdr-05.rq",// queryFileURL
+                "reif/rdr-05.ttlx",// dataFileURL
+                "reif/rdr-05.srx"// resultFileURL
+                ).runTest();
+
+    }
+
     @Override
     public Properties getProperties() {
 
@@ -526,7 +542,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
 
         // turn off quads.
         properties.setProperty(AbstractTripleStore.Options.QUADS, "false");
-        
+
         properties.setProperty(AbstractTripleStore.Options.STATEMENT_IDENTIFIERS, "true");
 
         // TM not available with quads.
@@ -543,7 +559,7 @@ public class TestReificationDoneRightEval extends AbstractDataDrivenSPARQLTestCa
         // no persistence.
         properties.setProperty(com.bigdata.journal.Options.BUFFER_MODE,
                 BufferMode.Transient.toString());
-        
+
 //        properties.setProperty(AbstractTripleStore.Options.STORE_BLANK_NODES, "true");
 
         return properties;

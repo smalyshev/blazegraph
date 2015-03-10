@@ -1,0 +1,8 @@
+# What's Alice's birth name and where it comes from
+
+prefix :          <http://example.com/>
+prefix dc:        <http://purl.org/dc/terms/>
+
+SELECT ?src ?name {
+   <<:Alice :birthName ?name>> dc:source ?src
+}
